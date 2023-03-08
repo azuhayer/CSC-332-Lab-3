@@ -1,6 +1,7 @@
 #include <stdio.h>
 
-int main() {
+int main() 
+{
     FILE *source, *dest1, *dest2;
     char buffer1[101], buffer2[51];
     int count1, count2;
