@@ -1,28 +1,30 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <fcntl.h>
 
 int main() 
 {
-    FILE *file1, *file2;
+    int fd1, fd2;
 
-    // create destination1.txt with read and write permissions
-    file1 = fopen("destination1.txt", "w+");
-    if (file1 == NULL) {
-        printf("Error: failed to create destination1.txt\n");
-        exit(1);
-    }
-    fclose(file1);
-
-    // create destination2.txt with read and write permissions
-    file2 = fopen("destination2.txt", "w+");
-    if (file2 == NULL) 
+    // Create destination1.txt
+    fd1 = open("destination1.txt", O_RDWR | O_CREAT | O_TRUNC, 0644);
+    if (fd1 < 0) 
     {
-        printf("Error: failed to create destination2.txt\n");
-        exit(1);
+        printf("Error creating destination1.txt.");
+        return 1;
     }
-    fclose(file2);
+    close(fd1);
 
-    printf("destination files created successfully\n");
+    // Create destination2.txt
+    fd2 = open("destination2.txt", O_RDWR | O_CREAT | O_TRUNC, 0644);
+    if (fd2 < 0) 
+    {
+        printf("Error creating destination2.txt.");
+        return 1;
+    }
+    close(fd2);
+
+    printf("Program completed successfully.");
 
     return 0;
 }
